@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MDP 網格地圖 — HW1</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+
+<div class="container">
+  <h1>MDP 網格地圖作業</h1>
+
+  <!-- ──── 控制面板 ──── -->
+  <div class="control-panel card">
+
+    <!-- 網格大小 -->
+    <div class="control-group">
+      <label for="grid-size">網格大小 (n × n)：</label>
+      <select id="grid-size">
+        <option value="5">5 × 5</option>
+        <option value="6">6 × 6</option>
+        <option value="7">7 × 7</option>
+        <option value="8">8 × 8</option>
+        <option value="9">9 × 9</option>
+      </select>
+      <button id="btn-init" class="btn btn-primary">初始化網格</button>
+    </div>
+
+    <!-- 模式選擇 -->
+    <div class="control-group" id="mode-group" style="display:none">
+      <label>點擊模式：</label>
+      <div class="mode-buttons">
+        <button class="btn mode-btn active" data-mode="start">🟢 設起點</button>
+        <button class="btn mode-btn" data-mode="goal">🔴 設終點</button>
+        <button class="btn mode-btn" data-mode="obstacle">⬛ 設障礙</button>
+        <button class="btn mode-btn" data-mode="clear">🔲 清除格</button>
+      </div>
+      <span id="obstacle-info" class="badge">障礙物：0 / 0</span>
+    </div>
+
+    <!-- 演算法按鈕 -->
+    <div class="control-group" id="algo-group" style="display:none">
+      <button id="btn-random-policy" class="btn btn-secondary">
+        HW1-2：隨機策略 + 策略評估
+      </button>
+      <button id="btn-value-iter" class="btn btn-accent">
+        HW1-3：價值迭代（最佳策略）
+      </button>
+      <button id="btn-reset" class="btn btn-danger">重置設定</button>
+    </div>
+
+    <!-- 顯示選項 -->
+    <div class="control-group" id="display-group" style="display:none">
+      <label>顯示選項：</label>
+      <label class="checkbox-label">
+        <input type="checkbox" id="toggle-policy" checked /> 顯示策略箭頭
+      </label>
+      <label class="checkbox-label">
+        <input type="checkbox" id="toggle-value" checked /> 顯示 V(s) 數值
+      </label>
+    </div>
+  </div>
+
+  <!-- ──── 網格顯示 ──── -->
+  <div id="grid-wrapper" class="grid-wrapper" style="display:none">
+    <div id="grid-container" class="grid-container"></div>
+  </div>
+
+  <!-- ──── 圖例 ──── -->
+  <div id="legend" class="legend card" style="display:none">
+    <h3>圖例</h3>
+    <div class="legend-items">
+      <span class="legend-item start">起點 S</span>
+      <span class="legend-item goal">終點 G</span>
+      <span class="legend-item obstacle">障礙物</span>
+      <span class="legend-item normal">一般格</span>
+    </div>
+    <div class="legend-note">
+      <strong>箭頭說明：</strong> ↑上 ↓下 ←左 →右 ★終點
+    </div>
+  </div>
+
+  <!-- ──── 訊息提示 ──── -->
+  <div id="message-box" class="message-box" style="display:none"></div>
+
+  <!-- ──── 操作說明 ──── -->
+  <div class="instructions card">
+    <h3>操作說明</h3>
+    <ol>
+      <li>選擇網格大小後點擊「初始化網格」</li>
+      <li>選擇「設起點」模式，點擊格子設置綠色起點</li>
+      <li>選擇「設終點」模式，點擊格子設置紅色終點</li>
+      <li>選擇「設障礙」模式，設置最多 n-2 個灰色障礙物</li>
+      <li>點擊「HW1-2：隨機策略 + 策略評估」查看隨機策略與 V(s)</li>
+      <li>點擊「HW1-3：價值迭代（最佳策略）」查看最佳策略與最佳 V(s)</li>
+    </ol>
+  </div>
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

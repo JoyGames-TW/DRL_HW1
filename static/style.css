@@ -1,0 +1,271 @@
+/* ================================================
+   style.css  — MDP 網格地圖 HW1
+   ================================================ */
+
+/* ── Reset & Base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Segoe UI', 'Microsoft JhengHei', sans-serif;
+  background: #f0f4f8;
+  color: #2d3748;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #2b6cb0;
+  letter-spacing: 1px;
+}
+
+h3 {
+  font-size: 1rem;
+  margin-bottom: 10px;
+  color: #4a5568;
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+/* ── Card ── */
+.card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 18px 22px;
+  margin-bottom: 18px;
+  box-shadow: 0 2px 10px rgba(0,0,0,.08);
+}
+
+/* ── Control Panel ── */
+.control-panel { }
+
+.control-group {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.control-group:last-child { margin-bottom: 0; }
+
+.control-group label {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+select {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #cbd5e0;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+/* ── Buttons ── */
+.btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .2s;
+}
+
+.btn:hover { filter: brightness(0.9); transform: translateY(-1px); }
+.btn:active { transform: translateY(0); }
+
+.btn-primary  { background: #3182ce; color: #fff; }
+.btn-secondary{ background: #6b46c1; color: #fff; }
+.btn-accent   { background: #2f855a; color: #fff; }
+.btn-danger   { background: #c53030; color: #fff; }
+
+/* mode buttons */
+.mode-buttons { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.mode-btn {
+  background: #e2e8f0;
+  color: #2d3748;
+  border: 2px solid transparent;
+}
+.mode-btn.active {
+  background: #ebf8ff;
+  border-color: #3182ce;
+  color: #2b6cb0;
+}
+
+/* ── Badge ── */
+.badge {
+  background: #e2e8f0;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* ── Checkbox ── */
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+/* ── Grid Wrapper ── */
+.grid-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.grid-container {
+  display: inline-grid;
+  gap: 3px;
+  background: #a0aec0;
+  padding: 3px;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0,0,0,.12);
+}
+
+/* ── Cell ── */
+.cell {
+  width: 80px;
+  height: 80px;
+  background: #f7fafc;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  transition: background .15s, transform .1s;
+  user-select: none;
+}
+
+.cell:hover {
+  filter: brightness(0.92);
+  transform: scale(1.04);
+  z-index: 1;
+}
+
+/* Cell types */
+.cell.start {
+  background: #68d391;
+  border: 3px solid #276749;
+}
+.cell.goal {
+  background: #fc8181;
+  border: 3px solid #9b2c2c;
+}
+.cell.obstacle {
+  background: #718096;
+  cursor: not-allowed;
+}
+.cell.obstacle:hover {
+  filter: none;
+  transform: none;
+}
+
+/* Policy arrow */
+.cell-arrow {
+  font-size: 1.6rem;
+  line-height: 1;
+  transition: opacity .2s;
+}
+
+/* Value display */
+.cell-value {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #4a5568;
+  position: absolute;
+  bottom: 4px;
+  right: 6px;
+  transition: opacity .2s;
+}
+
+.cell.start .cell-value,
+.cell.goal  .cell-value { color: #fff; }
+.cell.obstacle .cell-value { display: none; }
+
+/* Cell label (S / G) */
+.cell-label {
+  font-size: 0.75rem;
+  font-weight: 800;
+  position: absolute;
+  top: 4px;
+  left: 6px;
+  color: rgba(0,0,0,.55);
+}
+.cell.start .cell-label { color: #276749; }
+.cell.goal  .cell-label { color: #9b2c2c; }
+
+/* Value coloring (heat map style) */
+.cell[data-valclass="high"]   { background: #c6f6d5; }
+.cell[data-valclass="medium"] { background: #fefcbf; }
+.cell[data-valclass="low"]    { background: #fed7d7; }
+.cell.start[data-valclass]    { background: #68d391; }
+.cell.goal[data-valclass]     { background: #fc8181; }
+.cell.obstacle[data-valclass] { background: #718096; }
+
+/* ── Legend ── */
+.legend h3 { margin-bottom: 8px; }
+
+.legend-items {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.legend-item {
+  padding: 4px 14px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.legend-item.start    { background: #68d391; border: 2px solid #276749; }
+.legend-item.goal     { background: #fc8181; border: 2px solid #9b2c2c; }
+.legend-item.obstacle { background: #718096; color: #fff; }
+.legend-item.normal   { background: #f7fafc; border: 1px solid #a0aec0; }
+
+.legend-note { font-size: 0.88rem; color: #718096; }
+
+/* ── Message Box ── */
+.message-box {
+  padding: 12px 18px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  animation: fadein .3s;
+}
+.message-box.success { background: #c6f6d5; color: #276749; }
+.message-box.error   { background: #fed7d7; color: #9b2c2c; }
+.message-box.info    { background: #bee3f8; color: #2c5282; }
+
+@keyframes fadein { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; } }
+
+/* ── Instructions ── */
+.instructions ol {
+  padding-left: 20px;
+  line-height: 1.9;
+  font-size: 0.92rem;
+  color: #4a5568;
+}
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  .cell { width: 56px; height: 56px; }
+  .cell-arrow { font-size: 1.2rem; }
+  .cell-value { font-size: 0.58rem; }
+}
