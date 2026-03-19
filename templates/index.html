@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DRL HW1 Grid World</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="bg-glow bg-glow-a"></div>
+  <div class="bg-glow bg-glow-b"></div>
+
+  <main class="container">
+    <header class="hero">
+      <p class="eyebrow">Deep Reinforcement Learning HW1</p>
+      <h1>Interactive Grid World Lab</h1>
+      <p class="subtitle">Build an n x n map, evaluate a random policy, then derive the optimal policy with value iteration.</p>
+    </header>
+
+    <section class="panel control-panel">
+      <div class="control-row">
+        <label for="gridSize">Grid size (5-9)</label>
+        <input id="gridSize" type="number" min="5" max="9" value="5">
+        <button id="generateGridBtn" class="btn btn-primary">Generate Grid</button>
+      </div>
+
+      <div class="control-row control-row-wrap">
+        <span class="label-inline">Select mode</span>
+        <button class="btn mode-btn active" data-mode="start">Set Start</button>
+        <button class="btn mode-btn" data-mode="end">Set End</button>
+        <button class="btn mode-btn" data-mode="obstacle">Toggle Obstacle</button>
+      </div>
+
+      <div class="control-row control-row-wrap">
+        <span class="label-inline">Algorithm parameters</span>
+        <label for="gamma">gamma</label>
+        <input id="gamma" type="number" min="0" max="0.99" step="0.01" value="0.90">
+        <label for="theta">theta</label>
+        <input id="theta" type="number" min="0.0000001" step="0.0000001" value="0.000001">
+      </div>
+
+      <div class="control-row control-row-wrap">
+        <button id="randomPolicyBtn" class="btn btn-secondary">Random Policy + Evaluation</button>
+        <button id="valueIterationBtn" class="btn btn-accent">Run Value Iteration</button>
+        <button id="resetResultBtn" class="btn btn-muted">Clear Result Panels</button>
+      </div>
+
+      <div class="status-grid">
+        <div class="status-card">
+          <strong>Start:</strong> <span id="startStatus">Not set</span>
+        </div>
+        <div class="status-card">
+          <strong>End:</strong> <span id="endStatus">Not set</span>
+        </div>
+        <div class="status-card">
+          <strong>Obstacles:</strong>
+          <span id="obstacleStatus">0 / 3</span>
+        </div>
+        <div class="status-card">
+          <strong>Active mode:</strong> <span id="modeStatus">Set Start</span>
+        </div>
+      </div>
+
+      <p id="message" class="message"></p>
+    </section>
+
+    <section class="panel grid-panel">
+      <h2>Grid Map</h2>
+      <p class="hint">Click cells to set start, end, and exactly n-2 obstacles.</p>
+      <div id="gridContainer" class="grid-container"></div>
+      <div class="legend">
+        <span><i class="dot dot-start"></i>Start</span>
+        <span><i class="dot dot-end"></i>End</span>
+        <span><i class="dot dot-obstacle"></i>Obstacle</span>
+        <span><i class="dot dot-normal"></i>Normal</span>
+      </div>
+    </section>
+
+    <section class="result-layout">
+      <article class="panel result-panel">
+        <h2>Policy Matrix</h2>
+        <p id="policyCaption" class="hint">No result yet.</p>
+        <div id="policyContainer" class="matrix-container"></div>
+      </article>
+
+      <article class="panel result-panel">
+        <h2>Value Function V(s)</h2>
+        <p id="valueCaption" class="hint">No result yet.</p>
+        <div id="valueContainer" class="matrix-container"></div>
+      </article>
+    </section>
+  </main>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
